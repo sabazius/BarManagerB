@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace BarManager
 {
-    public class Class
+    public class Piskov
     {
+        public int Id { get; set; }
+        public int Age { get; set; }
+
+
     }
 }
