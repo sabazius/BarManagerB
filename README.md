@@ -1,1 +1,1 @@
-# BarManager
+# BarManager Група Б
