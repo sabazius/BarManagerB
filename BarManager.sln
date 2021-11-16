@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager.Host", "BarManager\BarManager.Host.csproj", "{FC40D959-AED2-411C-ACFD-8C26365BCA10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager", "BarManager\BarManager.csproj", "{FC40D959-AED2-411C-ACFD-8C26365BCA10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarManager.Models", "BarManager.Models\BarManager.Models.csproj", "{D264B2D3-CE3F-4BF7-8F2E-3906D9E7EAE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager.Models", "BarManager.Models\BarManager.Models.csproj", "{D264B2D3-CE3F-4BF7-8F2E-3906D9E7EAE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
