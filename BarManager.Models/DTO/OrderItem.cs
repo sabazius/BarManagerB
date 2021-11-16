@@ -11,7 +11,7 @@ namespace BarManager.Models.DTO
 
         public string Name { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         public OrderType Type { get; set; }
 

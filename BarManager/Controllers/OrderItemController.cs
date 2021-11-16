@@ -27,7 +27,7 @@ namespace BarManager.Host.Controllers
             {
                 Id = 1,
                 Name = "TestOrder",
-                Price = 2,
+                Price = 2.50,
                 Type = Models.Enums.OrderType.Juice,
                 Tags = tags,
             };
