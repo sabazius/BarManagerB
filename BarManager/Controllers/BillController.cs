@@ -22,18 +22,13 @@ namespace BarManager.Host.Controllers
             {
                 Id = 1,
                 Amount = 10.50,
-                billStatus = 0,
-                paymentType = 0,
+                BillStatus = 0,
+                PaymentType = 0,
                 Created = new DateTime(2020, 5, 1, 8, 30, 52),
                 Finished= new DateTime(2020, 5, 1, 9, 30, 52)
 
-
-
-
-
             };
         }
-
 
     }
 }
