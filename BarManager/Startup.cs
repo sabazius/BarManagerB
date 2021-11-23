@@ -30,6 +30,7 @@ namespace BarManager
         {
 
             services.AddSingleton<ITagRepository, TagInMemoryRepository>();
+            services.AddSingleton<IShiftRepository, ShiftInMemoryRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
