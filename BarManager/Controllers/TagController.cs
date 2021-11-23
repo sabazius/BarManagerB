@@ -1,26 +1,74 @@
-﻿using BarManager.Models.DTO;
+﻿using BarManager.DL.Interfaces;
+using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BarManager.Host.Controllers
+namespace BarManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class TagController : ControllerBase
     {
+        private readonly ITagRepository _tagRepository;
 
-        public TagController()
+        public TagController(ITagRepository tagRepository)
         {
-            
+            _tagRepository = tagRepository;
         }
 
-        [HttpGet]
-        public Tag Get()
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
         {
-            return new Tag()
-            {
-                Id = 1,
-                Name = "TestTag",
-            };
+            var result = _tagRepository.GetAll();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(int id)
+        {
+            if (id <= 0) return BadRequest();
+
+            var result = _tagRepository.GetById(id);
+
+            if (result == null) return NotFound(id);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Create")]
+        public IActionResult CreateTag([FromBody]Tag tag)
+        {
+            if (tag == null) return BadRequest();
+
+            var result = _tagRepository.Create(tag);
+
+            return Ok(tag);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0) return BadRequest(id);
+            
+            var result = _tagRepository.Delete(id);
+            
+            if (result == null) return NotFound(id);
+            
+            return Ok(result);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update([FromBody] Tag tag)
+        {
+            if (tag == null) return BadRequest();
+
+            var searchTag = _tagRepository.GetById(tag.Id);
+
+            if (searchTag == null) return NotFound(tag.Id);
+
+            var result = _tagRepository.Update(tag);
+
+            return Ok(result);
         }
 
 

@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BarManager.DL.Interfaces;
+using BarManager.DL.Repositories.InMemoryRepos;
 
 namespace BarManager
 {
@@ -26,6 +28,8 @@ namespace BarManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton<ITagRepository, TagInMemoryRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
