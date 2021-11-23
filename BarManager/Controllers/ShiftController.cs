@@ -1,4 +1,5 @@
-﻿using BarManager.Models.DTO;
+﻿using BarManager.DL.Interfaces;
+using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -8,23 +9,69 @@ namespace BarManager.Controllers
     [Route("[controller]")]
     public class ShiftController : ControllerBase
     {
-        public ShiftController()
+        private readonly IShiftRepository _shiftRepository;
+
+        public ShiftController(IShiftRepository shiftRepository)
         {
-                
+            _shiftRepository = shiftRepository;
         }
 
-        [HttpGet]
-        public Shift Get() 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll() 
         {
-            var employees = new List<int>();
-            return new Shift
-            {
-                Id = 1,
-                Name = "Ivan",
-                Employees = new List<int>() { 1, 2, 3 }
+            var result = _shiftRepository.GetAll();
 
-            };
+            return Ok(result);
+            
         }
 
+        [HttpGet("GetByID")]
+        public IActionResult GetById(int Id)
+        {
+            if (Id <= 0) return BadRequest();
+
+            var result = _shiftRepository.GetById(Id);
+
+            if (result == null) return NotFound(Id);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Create")]
+        public IActionResult CreateShift([FromBody] Shift shift)
+        {
+            if (shift == null) return BadRequest();
+
+            var result = _shiftRepository.Create(shift);
+
+            return Ok(shift);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0) return BadRequest(id);
+
+            var result = _shiftRepository.Delete(id);
+
+            if (result == null) return NotFound(id);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update([FromBody] Shift shift)
+        {
+            if (shift == null) return BadRequest();
+
+            var searchShift = _shiftRepository.GetById(shift.Id);
+
+            if (searchShift == null ) return NotFound();
+
+            var result = _shiftRepository.Update(shift);
+
+            return Ok(result);
+
+        }
     }
 }

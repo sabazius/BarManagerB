@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BarManager.Host.Controllers
 {
@@ -11,22 +9,67 @@ namespace BarManager.Host.Controllers
     [Route("[controller]")]
     public class ClientController : ControllerBase
     {
+        private readonly IClientRepository _clientRepository;
 
-        public ClientController()
+        public ClientController(IClientRepository clientRepository)
         {
-
+            _clientRepository = clientRepository;
         }
 
-        [HttpGet]
-        public Client Get()
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
         {
-            return new Client()
-            {
-                Id = 1,
-                Name = "TestClient",
-                MoneySpend = DateTime.Today,
-                Discount = 4
-            };
+            var result = _clientRepository.GetAll();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(int id)
+        {
+            if (id <= 0) return BadRequest();
+
+            var result = _clientRepository.GetById(id);
+
+            if (result == null) return NotFound(id);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Create")]
+        public IActionResult CreateClient([FromBody] Client client)
+        {
+            if (client == null) return BadRequest();
+
+            var result = _clientRepository.Create(client);
+
+            return Ok(client);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0) return BadRequest(id);
+
+            var result = _clientRepository.Delete(id);
+
+            if (result == null) return NotFound(id);
+
+            return Ok(result);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update([FromBody] Client client)
+        {
+            if (client == null) return BadRequest();
+
+            var searchClient = _clientRepository.GetById(client.Id);
+
+            if (searchClient == null) return NotFound(client.Id);
+
+            var result = _clientRepository.Update(client);
+
+            return Ok(result);
         }
 
 

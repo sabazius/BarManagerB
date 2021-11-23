@@ -8,6 +8,6 @@ namespace BarManager.Models.DTO
 
         public string Name { get; set; }
 
-        public List<int> Employees { get; set; }
+        public List<Employee> Employees { get; set; }
     }
 }

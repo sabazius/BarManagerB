@@ -28,10 +28,14 @@ namespace BarManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<IShiftRepository, ShiftInMemoryRepository>();
+            services.AddSingleton<IOrderItemRepository, OrderItemInMemoryRepository>();
+            services.AddSingleton<IBillRepository, BillInMemoryRepository>();
             services.AddSingleton<ITagRepository, TagInMemoryRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeesInMemoryRepository>();
-
+            services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
+            services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
+          
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
