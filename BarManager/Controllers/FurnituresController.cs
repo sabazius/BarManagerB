@@ -18,8 +18,7 @@ namespace BarManager.Host.Controllers
         [HttpGet]
         public Furnitures Get()
         {
-            var location = new List<Location>();
-            location.Add(new Location() { Id = 3, Name = "Warehouse" });
+            var location = new Location() { Id = 3, Name = "Warehouse" };
 
             return new Furnitures()
             {
