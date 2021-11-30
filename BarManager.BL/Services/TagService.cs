@@ -1,17 +1,22 @@
-﻿using BarManager.BL.Interfaces;
+﻿using System;
+using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Serilog;
 
 namespace BarManager.BL.Services
 {
     public class TagService : ITagService
     {
         private readonly ITagRepository _tagRepository;
+        private readonly ILogger _logger;
 
-        public TagService(ITagRepository tagRepository)
+        public TagService(ITagRepository tagRepository, ILogger logger)
         {
             _tagRepository = tagRepository;
+            _logger = logger;
         }
 
         public Tag Create(Tag tag)
@@ -36,6 +41,8 @@ namespace BarManager.BL.Services
 
         public IEnumerable<Tag> GetAll()
         {
+            _logger.Information("Tag GetAll Error");
+
             return _tagRepository.GetAll();
         }
     }
