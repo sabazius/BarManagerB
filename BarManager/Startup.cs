@@ -33,6 +33,7 @@ namespace BarManager
 
 
             services.AddSingleton<ITagService, TagService>();
+            services.AddSingleton<IShiftService, ShiftService>();
 
 
             services.AddControllers();
