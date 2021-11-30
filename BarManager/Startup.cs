@@ -31,7 +31,7 @@ namespace BarManager
             services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
             services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
 
-
+            services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<ITagService, TagService>();
             services.AddSingleton<IOrderItemService, OrderItemService>();
             services.AddSingleton<IEmployeeService, EmployeeService>();

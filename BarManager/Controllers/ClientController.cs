@@ -1,25 +1,24 @@
-﻿using BarManager.DL.Interfaces;
+﻿using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
-namespace BarManager.Host.Controllers
+namespace BarManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class ClientController : ControllerBase
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientService;
 
-        public ClientController(IClientRepository clientRepository)
+        public ClientController(IClientService clientService)
         {
-            _clientRepository = clientRepository;
+            _clientService = clientService;
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _clientRepository.GetAll();
+            var result = _clientService.GetAll();
 
             return Ok(result);
         }
@@ -29,7 +28,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _clientRepository.GetById(id);
+            var result = _clientService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -41,7 +40,7 @@ namespace BarManager.Host.Controllers
         {
             if (client == null) return BadRequest();
 
-            var result = _clientRepository.Create(client);
+            var result = _clientService.Create(client);
 
             return Ok(client);
         }
@@ -51,7 +50,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _clientRepository.Delete(id);
+            var result = _clientService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -63,11 +62,11 @@ namespace BarManager.Host.Controllers
         {
             if (client == null) return BadRequest();
 
-            var searchClient = _clientRepository.GetById(client.Id);
+            var searchClient = _clientService.GetById(client.Id);
 
             if (searchClient == null) return NotFound(client.Id);
 
-            var result = _clientRepository.Update(client);
+            var result = _clientService.Update(client);
 
             return Ok(result);
         }
