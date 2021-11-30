@@ -1,3 +1,4 @@
+using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -8,17 +9,17 @@ namespace BarManager.Controllers
     [Route("[controller]")]
     public class BillController : ControllerBase
     {
-        private readonly IBillRepository _billRepository;
+        private readonly IBillService _billService;
 
-        public BillController(IBillRepository billRepository)
+        public BillController(IBillService billService)
         {
-            _billRepository = billRepository;
+            _billService = billService;
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _billRepository.GetAll();
+            var result = _billService.GetAll();
 
             return Ok(result);
         }
@@ -28,7 +29,7 @@ namespace BarManager.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _billRepository.GetById(id);
+            var result = _billService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -40,7 +41,7 @@ namespace BarManager.Controllers
         {
             if (bill == null) return BadRequest();
 
-            var result = _billRepository.Create(bill);
+            var result = _billService.Create(bill);
 
             return Ok(bill);
         }
@@ -50,7 +51,7 @@ namespace BarManager.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _billRepository.Delete(id);
+            var result = _billService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -62,11 +63,11 @@ namespace BarManager.Controllers
         {
             if (bill == null) return BadRequest();
 
-            var searchBill = _billRepository.GetById(bill.Id);
+            var searchBill = _billService.GetById(bill.Id);
 
             if (searchBill == null) return NotFound(bill.Id);
 
-            var result = _billRepository.Update(bill);
+            var result = _billService.Update(bill);
 
             return Ok(result);
         }
