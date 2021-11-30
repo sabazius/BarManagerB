@@ -1,4 +1,4 @@
-﻿using BarManager.DL.Interfaces;
+﻿using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +8,17 @@ namespace BarManager.Controllers
     [Route("[controller]")]
     public class TagController : ControllerBase
     {
-        private readonly ITagRepository _tagRepository;
+        private readonly ITagService _tagService;
 
-        public TagController(ITagRepository tagRepository)
+        public TagController(ITagService tagService)
         {
-            _tagRepository = tagRepository;
+            _tagService = tagService;
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _tagRepository.GetAll();
+            var result = _tagService.GetAll();
 
             return Ok(result);
         }
@@ -28,7 +28,7 @@ namespace BarManager.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _tagRepository.GetById(id);
+            var result = _tagService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -40,7 +40,7 @@ namespace BarManager.Controllers
         {
             if (tag == null) return BadRequest();
 
-            var result = _tagRepository.Create(tag);
+            var result = _tagService.Create(tag);
 
             return Ok(tag);
         }
@@ -50,7 +50,7 @@ namespace BarManager.Controllers
         {
             if (id <= 0) return BadRequest(id);
             
-            var result = _tagRepository.Delete(id);
+            var result = _tagService.Delete(id);
             
             if (result == null) return NotFound(id);
             
@@ -62,11 +62,11 @@ namespace BarManager.Controllers
         {
             if (tag == null) return BadRequest();
 
-            var searchTag = _tagRepository.GetById(tag.Id);
+            var searchTag = _tagService.GetById(tag.Id);
 
             if (searchTag == null) return NotFound(tag.Id);
 
-            var result = _tagRepository.Update(tag);
+            var result = _tagService.Update(tag);
 
             return Ok(result);
         }

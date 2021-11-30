@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BarManager.BL\BarManager.BL.csproj" />
     <ProjectReference Include="..\BarManager.DL\BarManager.DL.csproj" />
     <ProjectReference Include="..\BarManager.Models\BarManager.Models.csproj" />
   </ItemGroup>
