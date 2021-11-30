@@ -33,6 +33,7 @@ namespace BarManager
 
 
             services.AddSingleton<ITagService, TagService>();
+            services.AddSingleton<IBillService, BillService>();
 
 
             services.AddControllers();
