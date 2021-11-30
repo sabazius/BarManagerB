@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BarManager.DL.Interfaces;
+﻿using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BarManager.Host.Controllers
+namespace BarManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductsRepository _productsRepository;
-        public ProductsController(IProductsRepository productsRepository)
+        private readonly IProductsService _productsService;
+
+        public ProductsController(IProductsService productsService)
         {
-            _productsRepository = productsRepository;
+            _productsService = productsService;
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _productsRepository.GetAll();
+            var result = _productsService.GetAll();
 
             return Ok(result);
         }
@@ -31,7 +28,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _productsRepository.GetById(id);
+            var result = _productsService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -39,11 +36,11 @@ namespace BarManager.Host.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateTag([FromBody] Products products)
+        public IActionResult CreateProducts([FromBody] Products products)
         {
             if (products == null) return BadRequest();
 
-            var result = _productsRepository.Create(products);
+            var result = _productsService.Create(products);
 
             return Ok(products);
         }
@@ -53,7 +50,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _productsRepository.Delete(id);
+            var result = _productsService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -65,11 +62,11 @@ namespace BarManager.Host.Controllers
         {
             if (products == null) return BadRequest();
 
-            var searchProducts = _productsRepository.GetById(products.Id);
+            var searchProducts = _productsService.GetById(products.Id);
 
             if (searchProducts == null) return NotFound(products.Id);
 
-            var result = _productsRepository.Update(products);
+            var result = _productsService.Update(products);
 
             return Ok(result);
         }
@@ -77,4 +74,3 @@ namespace BarManager.Host.Controllers
 
     }
 }
-
