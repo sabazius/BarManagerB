@@ -34,6 +34,8 @@ namespace BarManager
 
             services.AddSingleton<ITagService, TagService>();
 
+            services.AddSingleton<IEmployeeService, EmployeeService>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

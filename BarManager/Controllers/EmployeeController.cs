@@ -1,25 +1,21 @@
-﻿using BarManager.DL.Interfaces;
+﻿using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-
 namespace BarManager.Host.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeRepository _employeeRepository;
-
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeRepository = employeeRepository;
+            _employeeService = employeeService;
         }
-
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _employeeRepository.GetAll();
+            var result = _employeeService.GetAll();
 
             return Ok(result);
         }
@@ -29,7 +25,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _employeeRepository.GetById(id);
+            var result = _employeeService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -41,7 +37,7 @@ namespace BarManager.Host.Controllers
         {
             if (employee == null) return BadRequest();
 
-            var result = _employeeRepository.Create(employee);
+            var result = _employeeService.Create(employee);
 
             return Ok(employee);
         }
@@ -51,7 +47,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _employeeRepository.Delete(id);
+            var result = _employeeService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -63,11 +59,11 @@ namespace BarManager.Host.Controllers
         {
             if (employee == null) return BadRequest();
 
-            var searchTag = _employeeRepository.GetById(employee.Id);
+            var searchTag = _employeeService.GetById(employee.Id);
 
             if (searchTag == null) return NotFound(employee.Id);
 
-            var result = _employeeRepository.Update(employee);
+            var result = _employeeService.Update(employee);
 
             return Ok(result);
         }
