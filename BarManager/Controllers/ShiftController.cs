@@ -1,7 +1,6 @@
-﻿using BarManager.DL.Interfaces;
+﻿using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace BarManager.Controllers
 {
@@ -9,17 +8,17 @@ namespace BarManager.Controllers
     [Route("[controller]")]
     public class ShiftController : ControllerBase
     {
-        private readonly IShiftRepository _shiftRepository;
+        private readonly IShiftService _shiftService;
 
-        public ShiftController(IShiftRepository shiftRepository)
+        public ShiftController(IShiftService shiftService)
         {
-            _shiftRepository = shiftRepository;
+            _shiftService = shiftService;
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll() 
         {
-            var result = _shiftRepository.GetAll();
+            var result = _shiftService.GetAll();
 
             return Ok(result);
             
@@ -30,7 +29,7 @@ namespace BarManager.Controllers
         {
             if (Id <= 0) return BadRequest();
 
-            var result = _shiftRepository.GetById(Id);
+            var result = _shiftService.GetById(Id);
 
             if (result == null) return NotFound(Id);
 
@@ -42,7 +41,7 @@ namespace BarManager.Controllers
         {
             if (shift == null) return BadRequest();
 
-            var result = _shiftRepository.Create(shift);
+            var result = _shiftService.Create(shift);
 
             return Ok(shift);
         }
@@ -52,7 +51,7 @@ namespace BarManager.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _shiftRepository.Delete(id);
+            var result = _shiftService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -64,11 +63,11 @@ namespace BarManager.Controllers
         {
             if (shift == null) return BadRequest();
 
-            var searchShift = _shiftRepository.GetById(shift.Id);
+            var searchShift = _shiftService.GetById(shift.Id);
 
             if (searchShift == null ) return NotFound();
 
-            var result = _shiftRepository.Update(shift);
+            var result = _shiftService.Update(shift);
 
             return Ok(result);
 
