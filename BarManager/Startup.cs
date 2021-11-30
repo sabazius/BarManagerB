@@ -33,7 +33,7 @@ namespace BarManager
 
 
             services.AddSingleton<ITagService, TagService>();
-
+            services.AddSingleton<IProductsService, ProductsService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
