@@ -1,18 +1,13 @@
+using BarManager.BL.Interfaces;
+using BarManager.BL.Services;
+using BarManager.DL.Interfaces;
+using BarManager.DL.Repositories.InMemoryRepos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BarManager.DL.Interfaces;
-using BarManager.DL.Repositories.InMemoryRepos;
 
 namespace BarManager
 {
@@ -35,7 +30,11 @@ namespace BarManager
             services.AddSingleton<IEmployeeRepository, EmployeesInMemoryRepository>();
             services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
             services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
-          
+
+
+            services.AddSingleton<ITagService, TagService>();
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
