@@ -14,21 +14,21 @@ namespace BarManager.DL.InMemoryDb
                 Id = 1,
                 Name = "NameA",
                 Discount = 1,
-                MoneySpend = DateTime.Now
+                MoneySpend = 1.24
             },
             new Client()
             {
                 Id = 2,
                 Name = "NameB",
                 Discount = 2,
-                MoneySpend = DateTime.Now
+                MoneySpend = 10.10
             },
             new Client()
             {
                 Id = 3,
                 Name = "NameC",
                 Discount = 3,
-                MoneySpend = DateTime.Now
+                MoneySpend = 23.12
             }
         };
     }

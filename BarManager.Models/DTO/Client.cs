@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-
-namespace BarManager.Models.DTO
+﻿namespace BarManager.Models.DTO
 {
     public class Client
     {
@@ -11,7 +6,7 @@ namespace BarManager.Models.DTO
 
         public string Name { get; set; }
 
-        public DateTime MoneySpend { get; set; }
+        public double MoneySpend { get; set; }
 
         public int Discount { get; set; }
 
