@@ -9,6 +9,8 @@ namespace BarManager.Extensions
     {
         public AutoMapping()
         {
+            CreateMap<OrderItem, OrderItemResponse>();
+            CreateMap<OrderItemRequest, OrderItem>();
             CreateMap<Tag, TagResponse>();
             CreateMap<TagRequest, Tag>();
         }
