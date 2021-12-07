@@ -13,6 +13,8 @@ namespace BarManager.Extensions
             CreateMap<OrderItemRequest, OrderItem>();
             CreateMap<Tag, TagResponse>();
             CreateMap<TagRequest, Tag>();
+            CreateMap<Employee, EmployeeResponse>();
+            CreateMap<EmployeeRequest, Employee>();
             CreateMap<Products, ProductsResponse>();
             CreateMap<ProductsRequest, Products>();
             CreateMap<Shift, ShiftResponse>();

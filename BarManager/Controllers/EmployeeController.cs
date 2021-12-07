@@ -1,5 +1,8 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 namespace BarManager.Host.Controllers
 {
@@ -8,9 +11,11 @@ namespace BarManager.Host.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
-        public EmployeeController(IEmployeeService employeeService)
+        private readonly IMapper _mapper;
+        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
         {
             _employeeService = employeeService;
+            _mapper = mapper;
         }
         [HttpGet("GetAll")]
         public IActionResult GetAll()
@@ -29,17 +34,21 @@ namespace BarManager.Host.Controllers
 
             if (result == null) return NotFound(id);
 
-            return Ok(result);
+            var response = _mapper.Map<EmployeeResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateEmployee([FromBody] Employee employee)
+        public IActionResult CreateEmployee([FromBody] EmployeeRequest employeeRequest)
         {
-            if (employee == null) return BadRequest();
+            if (employeeRequest == null) return BadRequest();
+
+            var employee = _mapper.Map<Employee>(employeeRequest);
 
             var result = _employeeService.Create(employee);
 
-            return Ok(employee);
+            return Ok(result);
         }
 
         [HttpDelete]
