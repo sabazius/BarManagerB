@@ -1,6 +1,8 @@
+using AutoMapper;
 using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarManager.Controllers
@@ -10,10 +12,12 @@ namespace BarManager.Controllers
     public class BillController : ControllerBase
     {
         private readonly IBillService _billService;
+        private readonly IMapper _mapper;
 
-        public BillController(IBillService billService)
+        public BillController(IBillService billService,IMapper mapper)
         {
             _billService = billService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -32,18 +36,21 @@ namespace BarManager.Controllers
             var result = _billService.GetById(id);
 
             if (result == null) return NotFound(id);
+            var response = _mapper.Map<IBillRepository>(result);
 
-            return Ok(result);
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateBIll([FromBody] Bill bill)
+        public IActionResult CreateBill([FromBody] BillRequest billRequest)
         {
-            if (bill == null) return BadRequest();
+            if (billRequest == null) return BadRequest();
+
+            var bill = _mapper.Map<Bill>(billRequest);
 
             var result = _billService.Create(bill);
 
-            return Ok(bill);
+            return Ok(result);
         }
 
         [HttpDelete]

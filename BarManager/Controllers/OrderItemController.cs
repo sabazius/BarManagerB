@@ -1,7 +1,10 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.BL.Services;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -12,10 +15,12 @@ namespace BarManager.Host.Controllers
     public class OrderItemController : ControllerBase
     {
         private readonly IOrderItemService _orderItemService;
+        private readonly IMapper _mapper;
 
-        public OrderItemController(IOrderItemService OrderItemService)
+        public OrderItemController(IOrderItemService OrderItemService, IMapper mapper)
         {
             _orderItemService = OrderItemService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -35,17 +40,21 @@ namespace BarManager.Host.Controllers
 
             if (result == null) return NotFound(id);
 
-            return Ok(result);
+            var response = _mapper.Map<OrderItemResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateTag([FromBody] OrderItem orderItem)
+        public IActionResult CreateTag([FromBody] OrderItemRequest orderItemRequest)
         {
-            if (orderItem == null) return BadRequest();
+            if (orderItemRequest == null) return BadRequest();
+
+            var orderItem = _mapper.Map<OrderItem>(orderItemRequest);
 
             var result = _orderItemService.Create(orderItem);
 
-            return Ok(orderItem);
+            return Ok(result);
         }
 
         [HttpDelete]
