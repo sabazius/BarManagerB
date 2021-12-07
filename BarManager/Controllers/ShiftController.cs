@@ -1,5 +1,8 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarManager.Controllers
@@ -9,10 +12,12 @@ namespace BarManager.Controllers
     public class ShiftController : ControllerBase
     {
         private readonly IShiftService _shiftService;
+        private readonly IMapper _mapper;
 
-        public ShiftController(IShiftService shiftService)
+        public ShiftController(IShiftService shiftService, IMapper mapper)
         {
             _shiftService = shiftService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -33,17 +38,21 @@ namespace BarManager.Controllers
 
             if (result == null) return NotFound(Id);
 
-            return Ok(result);
+            var response = _mapper.Map<ShiftResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateShift([FromBody] Shift shift)
+        public IActionResult CreateShift([FromBody] ShiftRequest shiftRequest)
         {
-            if (shift == null) return BadRequest();
+            if (shiftRequest == null) return BadRequest();
+
+            var shift = _mapper.Map<Shift>(shiftRequest);
 
             var result = _shiftService.Create(shift);
 
-            return Ok(shift);
+            return Ok(result);
         }
 
         [HttpDelete]
