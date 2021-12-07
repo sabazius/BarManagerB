@@ -3,6 +3,7 @@ using BarManager.BL.Services;
 using BarManager.DL.Interfaces;
 using BarManager.DL.Repositories.InMemoryRepos;
 using BarManager.Extensions;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ namespace BarManager
         {
             services.AddSingleton(Log.Logger);
 
+            services.AddAutoMapper(typeof(Startup));
+            
             services.AddSingleton<IShiftRepository, ShiftInMemoryRepository>();
             services.AddSingleton<IOrderItemRepository, OrderItemInMemoryRepository>();
             services.AddSingleton<IBillRepository, BillInMemoryRepository>();
@@ -43,7 +46,8 @@ namespace BarManager
             services.AddSingleton<IProductsService, ProductsService>();
             services.AddSingleton<IShiftService, ShiftService>();
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BarManager", Version = "v1" });
