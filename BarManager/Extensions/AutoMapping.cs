@@ -11,6 +11,10 @@ namespace BarManager.Extensions
         {
             CreateMap<Tag, TagResponse>();
             CreateMap<TagRequest, Tag>();
+            CreateMap<Shift, ShiftResponse>();
+            CreateMap<ShiftRequest, Shift>();
+
+
         }
     }
 }

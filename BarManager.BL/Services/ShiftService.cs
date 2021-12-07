@@ -2,6 +2,7 @@
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BarManager.BL.Services
 {
@@ -15,6 +16,10 @@ namespace BarManager.BL.Services
 
         public Shift Create(Shift shift)
         {
+            var index = _shiftRepository.GetAll().OrderByDescending(x => x.Id).FirstOrDefault()?.Id;
+
+            shift.Id = (int)(index != null ? index + 1 : 1);
+
             return _shiftRepository.Create(shift);
         } 
         public Shift Update(Shift shift)
