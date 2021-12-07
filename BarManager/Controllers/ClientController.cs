@@ -39,7 +39,7 @@ namespace BarManager.Controllers
 
             var response = _mapper.Map<ClientResponse>(result);
 
-            return Ok(result);
+            return Ok(response);
         }
 
         [HttpPost("Create")]
