@@ -11,6 +11,9 @@ namespace BarManager.Extensions
         {
             CreateMap<Tag, TagResponse>();
             CreateMap<TagRequest, Tag>();
+
+            CreateMap<Employee, EmployeeResponse>();
+            CreateMap<EmployeeRequest, Employee>();
         }
     }
 }
