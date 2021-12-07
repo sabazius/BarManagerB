@@ -1,5 +1,8 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarManager.Controllers
@@ -9,10 +12,12 @@ namespace BarManager.Controllers
     public class TagController : ControllerBase
     {
         private readonly ITagService _tagService;
+        private readonly IMapper _mapper;
 
-        public TagController(ITagService tagService)
+        public TagController(ITagService tagService, IMapper mapper)
         {
             _tagService = tagService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -32,17 +37,21 @@ namespace BarManager.Controllers
 
             if (result == null) return NotFound(id);
 
-            return Ok(result);
+            var response = _mapper.Map<TagResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateTag([FromBody]Tag tag)
+        public IActionResult CreateTag([FromBody]TagRequest tagRequest)
         {
-            if (tag == null) return BadRequest();
+            if (tagRequest == null) return BadRequest();
+
+            var tag = _mapper.Map<Tag>(tagRequest);
 
             var result = _tagService.Create(tag);
 
-            return Ok(tag);
+            return Ok(result);
         }
 
         [HttpDelete]
