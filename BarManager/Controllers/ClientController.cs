@@ -1,5 +1,8 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarManager.Controllers
@@ -9,10 +12,12 @@ namespace BarManager.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
+        private readonly IMapper _mapper;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientService clientService, IMapper mapper)
         {
             _clientService = clientService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -32,13 +37,17 @@ namespace BarManager.Controllers
 
             if (result == null) return NotFound(id);
 
-            return Ok(result);
+            var response = _mapper.Map<ClientResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateClient([FromBody] Client client)
+        public IActionResult CreateClient([FromBody] ClientRequest clientRequest)
         {
-            if (client == null) return BadRequest();
+            if (clientRequest == null) return BadRequest();
+
+            var client = _mapper.Map<Client>(clientRequest);
 
             var result = _clientService.Create(client);
 
