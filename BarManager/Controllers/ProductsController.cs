@@ -1,5 +1,8 @@
-﻿using BarManager.BL.Interfaces;
+﻿using AutoMapper;
+using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarManager.Controllers
@@ -9,10 +12,12 @@ namespace BarManager.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _productsService;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductsService productsService)
+        public ProductsController(IProductsService productsService, IMapper mapper)
         {
             _productsService = productsService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
@@ -32,13 +37,17 @@ namespace BarManager.Controllers
 
             if (result == null) return NotFound(id);
 
-            return Ok(result);
+            var response = _mapper.Map<ProductsResponse>(result);
+
+            return Ok(response);
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateProducts([FromBody] Products products)
+        public IActionResult CreateProducts([FromBody] ProductsRequest productsRequest)
         {
-            if (products == null) return BadRequest();
+            if (productsRequest == null) return BadRequest();
+
+            var products = _mapper.Map<Products>(productsRequest);
 
             var result = _productsService.Create(products);
 
