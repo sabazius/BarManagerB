@@ -9,11 +9,18 @@ namespace BarManager.Extensions
     {
         public AutoMapping()
         {
+            CreateMap<OrderItem, OrderItemResponse>();
+            CreateMap<OrderItemRequest, OrderItem>();
             CreateMap<Tag, TagResponse>();
             CreateMap<TagRequest, Tag>();
             CreateMap<Client, ClientResponse>();
             CreateMap<ClientRequest, Client>();
-
+            CreateMap<Products, ProductsResponse>();
+            CreateMap<ProductsRequest, Products>();
+            CreateMap<Shift, ShiftResponse>();
+            CreateMap<ShiftRequest, Shift>();
+            CreateMap<Bill, BillResponse>();
+            CreateMap<BillRequest, Bill>();
         }
     }
 }
