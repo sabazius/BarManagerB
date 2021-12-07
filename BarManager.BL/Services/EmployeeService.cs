@@ -2,6 +2,7 @@
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BarManager.BL.Services
 {
@@ -15,6 +16,10 @@ namespace BarManager.BL.Services
         }
         public Employee Create(Employee employee)
         {
+            var index = _employeerepository.GetAll().OrderByDescending(x => x.Id).FirstOrDefault()?.Id;
+
+            employee.Id = (int)(index != null ? index + 1 : 1);
+
             return _employeerepository.Create(employee);
         }
 
