@@ -43,6 +43,8 @@ namespace BarManager
             services.AddSingleton<IBillService, BillService>();
             services.AddSingleton<IProductsService, ProductsService>();
             services.AddSingleton<IShiftService, ShiftService>();
+            services.AddSingleton<IFurnituresService, FurnituresService>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

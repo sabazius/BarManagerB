@@ -10,16 +10,16 @@ namespace BarManager.Host.Controllers
     [Route("[controller]")]
     public class FurnituresController : ControllerBase
     {
-        private readonly IFurnituresRepository _furnituresRepository;
+        private readonly IFurnituresService _furnituresService;
 
-        public FurnituresController(IFurnituresRepository furnituresRepository)
+        public FurnituresController(IFurnituresService furnituresService)
         {
-            _furnituresRepository = furnituresRepository;
+            _furnituresService = furnituresService;
         }
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _furnituresRepository.GetAll();
+            var result = _furnituresService.GetAll();
 
             return Ok(result);
         }
@@ -28,7 +28,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest();
 
-            var result = _furnituresRepository.GetById(id);
+            var result = _furnituresService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -40,7 +40,7 @@ namespace BarManager.Host.Controllers
         {
             if (furnitures == null) return BadRequest();
 
-            var result = _furnituresRepository.Create(furnitures);
+            var result = _furnituresService.Create(furnitures);
 
             return Ok(furnitures);
         }
@@ -50,7 +50,7 @@ namespace BarManager.Host.Controllers
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _furnituresRepository.Delete(id);
+            var result = _furnituresService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -61,11 +61,11 @@ namespace BarManager.Host.Controllers
          
         if (furnitures == null) return BadRequest();
 
-        var searchTag = _furnituresRepository.GetById(furnitures.Id);
+        var searchTag = _furnituresService.GetById(furnitures.Id);
 
             if (searchTag == null) return NotFound(furnitures.Id);
 
-        var result = _furnituresRepository.Update(furnitures);
+        var result = _furnituresService.Update(furnitures);
 
             return Ok(result);
     }
