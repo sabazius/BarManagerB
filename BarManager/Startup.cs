@@ -41,6 +41,7 @@ namespace BarManager
             services.AddSingleton<IEmployeeRepository, EmployeesInMemoryRepository>();
             services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
             services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
+            services.AddSingleton<IFurnituresRepository, FurnituresInMemoryRepository>();
 
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<ITagService, TagService>();
@@ -49,6 +50,8 @@ namespace BarManager
             services.AddSingleton<IBillService, BillService>();
             services.AddSingleton<IProductsService, ProductsService>();
             services.AddSingleton<IShiftService, ShiftService>();
+            services.AddSingleton<IFurnituresService, FurnituresService>();
+
 
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
