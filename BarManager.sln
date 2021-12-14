@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager.Models", "BarMan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager.DL", "BarManager.DL\BarManager.DL.csproj", "{46484D71-C815-4B03-885F-83A00BDD92D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarManager.BL", "BarManager.BL\BarManager.BL.csproj", "{D285D5D4-5155-43A4-899F-5DDB681ADE02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarManager.BL", "BarManager.BL\BarManager.BL.csproj", "{D285D5D4-5155-43A4-899F-5DDB681ADE02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarManager.Test", "BarManager.Test\BarManager.Test.csproj", "{5919C897-F1F1-450C-B76A-F1B9689BF02C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D285D5D4-5155-43A4-899F-5DDB681ADE02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D285D5D4-5155-43A4-899F-5DDB681ADE02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D285D5D4-5155-43A4-899F-5DDB681ADE02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5919C897-F1F1-450C-B76A-F1B9689BF02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5919C897-F1F1-450C-B76A-F1B9689BF02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5919C897-F1F1-450C-B76A-F1B9689BF02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5919C897-F1F1-450C-B76A-F1B9689BF02C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
