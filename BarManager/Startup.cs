@@ -39,7 +39,7 @@ namespace BarManager
             services.AddSingleton<IBillRepository, BillInMemoryRepository>();
             services.AddSingleton<ITagRepository, TagMongoRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeesInMemoryRepository>();
-            services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
+            services.AddSingleton<IClientRepository, ClientMongoRepository>();
             services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
 
             services.AddSingleton<IClientService, ClientService>();
