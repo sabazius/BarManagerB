@@ -34,7 +34,8 @@ namespace BarManager
 
             services.Configure<MongoDbConfiguration>(Configuration.GetSection(nameof(MongoDbConfiguration)));
 
-            services.AddSingleton<IShiftRepository, ShiftInMemoryRepository>();
+            services.AddSingleton<IShiftRepository, ShiftMongoRepository>();
+            services.AddSingleton<IOrderItemRepository, OrderItemInMemoryRepository>();
             services.AddSingleton<IOrderItemRepository, OrderItemMongoRepository>();
             services.AddSingleton<IBillRepository, BillInMemoryRepository>();
             services.AddSingleton<ITagRepository, TagMongoRepository>();
