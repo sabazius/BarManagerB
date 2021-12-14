@@ -2,7 +2,9 @@ using BarManager.BL.Interfaces;
 using BarManager.BL.Services;
 using BarManager.DL.Interfaces;
 using BarManager.DL.Repositories.InMemoryRepos;
+using BarManager.DL.Repositories.Mongo;
 using BarManager.Extensions;
+using BarManager.Models.Common;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,11 +31,13 @@ namespace BarManager
             services.AddSingleton(Log.Logger);
 
             services.AddAutoMapper(typeof(Startup));
-            
+
+            services.Configure<MongoDbConfiguration>(Configuration.GetSection(nameof(MongoDbConfiguration)));
+
             services.AddSingleton<IShiftRepository, ShiftInMemoryRepository>();
             services.AddSingleton<IOrderItemRepository, OrderItemInMemoryRepository>();
             services.AddSingleton<IBillRepository, BillInMemoryRepository>();
-            services.AddSingleton<ITagRepository, TagInMemoryRepository>();
+            services.AddSingleton<ITagRepository, TagMongoRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeesInMemoryRepository>();
             services.AddSingleton<IClientRepository, ClientInMemoryRepository>();
             services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
