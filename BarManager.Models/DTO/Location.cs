@@ -9,9 +9,5 @@ namespace BarManager.Models.DTO
 
         public string Name { get; set; }
 
-        public static implicit operator Location(List<Location> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

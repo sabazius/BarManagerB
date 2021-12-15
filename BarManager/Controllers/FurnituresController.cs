@@ -3,6 +3,7 @@ using BarManager.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using BarManager.DL.Interfaces;
+using BarManager.BL.Interfaces;
 
 namespace BarManager.Host.Controllers
 {
@@ -12,15 +13,14 @@ namespace BarManager.Host.Controllers
     {
         private readonly IFurnituresService _furnituresService;
 
-        public FurnituresController(IFurnituresService furnituresService)
+        public FurnituresController(IFurnituresService FurnituresService)
         {
-            _furnituresService = furnituresService;
+            _furnituresService = FurnituresService;
         }
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var result = _furnituresService.GetAll();
-
             return Ok(result);
         }
         [HttpGet("GetById")]
@@ -42,7 +42,7 @@ namespace BarManager.Host.Controllers
 
             var result = _furnituresService.Create(furnitures);
 
-            return Ok(furnitures);
+            return Ok(result);
         }
 
         [HttpDelete]
@@ -57,8 +57,8 @@ namespace BarManager.Host.Controllers
             return Ok(result);
         }
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] Furnitures furnitures) { 
-         
+        public IActionResult Update([FromBody] Furnitures furnitures)
+        { 
         if (furnitures == null) return BadRequest();
 
         var searchTag = _furnituresService.GetById(furnitures.Id);
@@ -68,7 +68,7 @@ namespace BarManager.Host.Controllers
         var result = _furnituresService.Update(furnitures);
 
             return Ok(result);
+        }
     }
-}
 }
 

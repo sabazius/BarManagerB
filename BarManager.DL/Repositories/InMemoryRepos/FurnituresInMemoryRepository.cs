@@ -1,5 +1,9 @@
-﻿using System;
+﻿using BarManager.DL.InMemoryDb;
+using BarManager.DL.Interfaces;
+using BarManager.Models.DTO;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BarManager.DL.Repositories.InMemoryRepos
@@ -12,7 +16,7 @@ namespace BarManager.DL.Repositories.InMemoryRepos
         }
         public Furnitures Create(Furnitures furnitures)
         {
-            FurnituresInMemoryCollection.FurnituresDb.Add(furnitures)
+            FurnituresInMemoryCollection.FurnituresDb.Add(furnitures);
                 return furnitures;
         }
         public Furnitures Delete(int id)
@@ -31,8 +35,8 @@ namespace BarManager.DL.Repositories.InMemoryRepos
         }
         public Furnitures Update(Furnitures furnitures)
         {
-            var result = FurnituresInMemoryCollection.FurnituresDb.FirstOrDefault(x => x.Id == furnitures.id);
-            result.Name = furnitures.Name;
+            var result = FurnituresInMemoryCollection.FurnituresDb.FirstOrDefault(x => x.Id == furnitures.Id);
+            result.Type = furnitures.Type;
             return result;
         }
     }

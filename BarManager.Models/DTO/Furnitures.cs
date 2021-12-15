@@ -8,7 +8,7 @@ namespace BarManager.Models.DTO
     public class Furnitures
     {
         public int Id { get; set; }
-        public FurnituresType Type { get; set;}
-        public Location Location { get; set; }
+        public FurnituresType Type { get; set; }
+        public List<Location> Location { get; set; }
     }
 }

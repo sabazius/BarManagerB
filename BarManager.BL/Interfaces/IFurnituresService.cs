@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BarManager.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,12 +9,12 @@ namespace BarManager.BL.Interfaces
     {
         Furnitures Create(Furnitures furnitures);
 
-        Furnitures Update(Furnitures name);
+        Furnitures Update(Furnitures tag);
 
         Furnitures Delete(int id);
 
         Furnitures GetById(int id);
 
-        IEnuberable<Furnitures> GetAll();
+        IEnumerable<Furnitures> GetAll();
     }
 }
