@@ -9,5 +9,6 @@ namespace BarManager.Models.DTO
 
         public string Name { get; set; }
 
+        public List<Location> location { get; set; }
     }
 }
