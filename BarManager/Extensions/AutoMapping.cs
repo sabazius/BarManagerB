@@ -14,6 +14,13 @@ namespace BarManager.Extensions
             CreateMap<Tag, TagResponse>().ReverseMap();
             CreateMap<TagRequest, Tag>().ReverseMap();
             CreateMap<TagUpdateRequest, Tag>().ReverseMap();
+            CreateMap<Client, ClientResponse>();
+            CreateMap<ClientRequest, Client>();
+            CreateMap<Employee, EmployeeResponse>().ReverseMap();
+            CreateMap<EmployeeRequest, Employee>().ReverseMap();
+            CreateMap<Employee, EmployeeUpdateRequest>();
+            CreateMap<Products, ProductsResponse>();
+            CreateMap<ProductsRequest, Products>();
             CreateMap<Client, ClientResponse>().ReverseMap();
             CreateMap<ClientRequest, Client>().ReverseMap();
             CreateMap<ClientUpdateRequest, Client>().ReverseMap();

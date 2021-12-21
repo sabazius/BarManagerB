@@ -64,15 +64,17 @@ namespace BarManager.Host.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] Employee employee)
+        public IActionResult Update([FromBody] EmployeeUpdateRequest employeeRequest)
         {
-            if (employee == null) return BadRequest();
+            if (employeeRequest == null) return BadRequest();
 
-            var searchTag = _employeeService.GetById(employee.Id);
+            var searchEmployee = _employeeService.GetById(employeeRequest.Id);
 
-            if (searchTag == null) return NotFound(employee.Id);
+            if (searchEmployee == null) return NotFound(employeeRequest.Id);
 
-            var result = _employeeService.Update(employee);
+            searchEmployee.Name = employeeRequest.Name;
+
+            var result = _employeeService.Update(searchEmployee);
 
             return Ok(result);
         }
