@@ -11,8 +11,9 @@ namespace BarManager.Extensions
         {
             CreateMap<OrderItem, OrderItemResponse>();
             CreateMap<OrderItemRequest, OrderItem>();
-            CreateMap<Tag, TagResponse>();
-            CreateMap<TagRequest, Tag>();
+            CreateMap<Tag, TagResponse>().ReverseMap();
+            CreateMap<TagRequest, Tag>().ReverseMap();
+            CreateMap<TagUpdateRequest, Tag>().ReverseMap();
             CreateMap<Client, ClientResponse>();
             CreateMap<ClientRequest, Client>();
             CreateMap<Employee, EmployeeResponse>();
