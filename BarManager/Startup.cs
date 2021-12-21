@@ -36,7 +36,7 @@ namespace BarManager
 
             services.AddSingleton<IShiftRepository, ShiftMongoRepository>();
             services.AddSingleton<IOrderItemRepository, OrderItemMongoRepository>();
-            services.AddSingleton<IBillRepository, BillInMemoryRepository>();
+            services.AddSingleton<IBillRepository, BillMongoRepository>();
             services.AddSingleton<ITagRepository, TagMongoRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeMongoRepository>();
             services.AddSingleton<IProductsRepository, ProductsMongoRepository>();
