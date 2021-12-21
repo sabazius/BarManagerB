@@ -45,9 +45,6 @@ namespace BarManager.BL.Services
             return _billRepository.GetAll();
         }
 
-        public object Update(BillUpdateRequest bill)
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }

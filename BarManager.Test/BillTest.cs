@@ -150,7 +150,7 @@ namespace BarManager.Test
         }
 
         [Fact]
-        public void Bill_Update_BillName()
+        public void Bill_Update_BillAmount()
         {
             var billId = 2;
             var expectedAmount =  55;

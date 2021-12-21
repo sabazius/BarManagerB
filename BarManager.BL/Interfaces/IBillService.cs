@@ -15,6 +15,6 @@ namespace BarManager.BL.Interfaces
         Bill GetById(int id);
 
         IEnumerable<Bill> GetAll();
-        object Update(BillUpdateRequest bill);
+       
     }
 }
