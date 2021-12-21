@@ -67,15 +67,17 @@ namespace BarManager.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] Tag tag)
+        public IActionResult Update([FromBody] TagUpdateRequest tagRequest)
         {
-            if (tag == null) return BadRequest();
+            if (tagRequest == null) return BadRequest();
 
-            var searchTag = _tagService.GetById(tag.Id);
+            var searchTag = _tagService.GetById(tagRequest.Id);
 
-            if (searchTag == null) return NotFound(tag.Id);
+            if (searchTag == null) return NotFound(tagRequest.Id);
 
-            var result = _tagService.Update(tag);
+            searchTag.Name = tagRequest.Name;
+
+            var result = _tagService.Update(searchTag);
 
             return Ok(result);
         }
