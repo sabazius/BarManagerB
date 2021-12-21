@@ -1,6 +1,7 @@
 ﻿using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,9 @@ namespace BarManager.BL.Services
     {
 
         private readonly IOrderItemRepository _orderItemRepository;
+        private readonly ILogger _logger;
 
-        public OrderItemService(IOrderItemRepository orderItemRepository)
+        public OrderItemService(IOrderItemRepository orderItemRepository, ILogger logger)
         {
             _orderItemRepository = orderItemRepository;
         }

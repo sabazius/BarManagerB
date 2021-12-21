@@ -74,11 +74,13 @@ namespace BarManager.Host.Controllers
         {
             if (orderItem == null) return BadRequest();
 
-            var searchTag = _orderItemService.GetById(orderItem.Id);
+            var searchOrderItem = _orderItemService.GetById(orderItem.Id);
 
-            if (searchTag == null) return NotFound(orderItem.Id);
+            if (searchOrderItem == null) return NotFound(orderItem.Id);
 
-            var result = _orderItemService.Update(orderItem);
+            searchOrderItem.Name = orderItem.Name;
+
+            var result = _orderItemService.Update(searchOrderItem);
 
             return Ok(result);
         }
