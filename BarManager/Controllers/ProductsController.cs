@@ -67,15 +67,17 @@ namespace BarManager.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] Products products)
+        public IActionResult Update([FromBody] ProductsUpdateRequest productsRequest)
         {
-            if (products == null) return BadRequest();
+            if (productsRequest == null) return BadRequest();
 
-            var searchProducts = _productsService.GetById(products.Id);
+            var searchProducts = _productsService.GetById(productsRequest.Id);
 
-            if (searchProducts == null) return NotFound(products.Id);
+            if (searchProducts == null) return NotFound(productsRequest.Id);
 
-            var result = _productsService.Update(products);
+            searchProducts.Name = productsRequest.Name;
+
+            var result = _productsService.Update(searchProducts);
 
             return Ok(result);
         }
