@@ -3,7 +3,9 @@ using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
 using BarManager.Models.Requests;
+using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BarManager.Controllers
 {
@@ -36,7 +38,7 @@ namespace BarManager.Controllers
             var result = _billService.GetById(id);
 
             if (result == null) return NotFound(id);
-            var response = _mapper.Map<IBillRepository>(result);
+            var response = _mapper.Map<BillResponse>(result);
 
             return Ok(response);
         }
@@ -79,6 +81,6 @@ namespace BarManager.Controllers
             return Ok(result);
         }
 
-
+       
     }
 }

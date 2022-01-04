@@ -1,4 +1,5 @@
 ﻿using BarManager.Models.DTO;
+using BarManager.Models.Requests;
 using System.Collections.Generic;
 
 namespace BarManager.BL.Interfaces
@@ -14,5 +15,6 @@ namespace BarManager.BL.Interfaces
         Bill GetById(int id);
 
         IEnumerable<Bill> GetAll();
+       
     }
 }

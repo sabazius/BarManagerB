@@ -1,6 +1,7 @@
 ﻿using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
+using BarManager.Models.Requests;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,5 +44,7 @@ namespace BarManager.BL.Services
         {
             return _billRepository.GetAll();
         }
+
+       
     }
 }
