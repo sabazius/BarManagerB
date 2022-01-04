@@ -68,15 +68,17 @@ namespace BarManager.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] Shift shift)
+        public IActionResult Update([FromBody] ShiftUpdateRequest shiftRequest)
         {
-            if (shift == null) return BadRequest();
+            if (shiftRequest == null) return BadRequest();
 
-            var searchShift = _shiftService.GetById(shift.Id);
+            var searchShift = _shiftService.GetById(shiftRequest.Id);
 
-            if (searchShift == null ) return NotFound();
+            if (searchShift == null ) return NotFound(shiftRequest.Id);
 
-            var result = _shiftService.Update(shift);
+            searchShift.Name = shiftRequest.Name;
+
+            var result = _shiftService.Update(searchShift);
 
             return Ok(result);
 

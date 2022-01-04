@@ -1,6 +1,7 @@
 ﻿using BarManager.BL.Interfaces;
 using BarManager.DL.Interfaces;
 using BarManager.Models.DTO;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +10,12 @@ namespace BarManager.BL.Services
     public class ShiftService : IShiftService
     {
         private readonly IShiftRepository _shiftRepository;
-        public ShiftService(IShiftRepository shiftRepository)
+        private readonly ILogger _logger;
+
+        public ShiftService(IShiftRepository shiftRepository, ILogger logger)
         {
             _shiftRepository = shiftRepository;
+            _logger = logger;
         }
 
         public Shift Create(Shift shift)

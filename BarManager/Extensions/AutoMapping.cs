@@ -20,8 +20,9 @@ namespace BarManager.Extensions
             CreateMap<EmployeeRequest, Employee>();
             CreateMap<Products, ProductsResponse>();
             CreateMap<ProductsRequest, Products>();
-            CreateMap<Shift, ShiftResponse>();
-            CreateMap<ShiftRequest, Shift>();
+            CreateMap<Shift, ShiftResponse>().ReverseMap();
+            CreateMap<ShiftRequest, Shift>().ReverseMap();
+            CreateMap<ShiftUpdateRequest, Shift>().ReverseMap();
             CreateMap<Bill, BillResponse>();
             CreateMap<BillRequest, Bill>();
         }
