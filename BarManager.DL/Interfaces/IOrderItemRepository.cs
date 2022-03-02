@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BarManager.Models.DTO;
 
 namespace BarManager.DL.Interfaces
 {
     public interface IOrderItemRepository
     {
-        OrderItem Create(OrderItem orderitem);
+        Task<OrderItem> Create(OrderItem orderitem);
 
-        OrderItem Update(OrderItem tag);
+        Task<OrderItem> Update(OrderItem tag);
 
-        OrderItem Delete(int id);
+        Task<OrderItem> Delete(int id);
 
-        OrderItem GetById(int id);
+        Task<OrderItem> GetById(int id);
 
-        IEnumerable<OrderItem> GetAll();
+        Task<IEnumerable<OrderItem>> GetAll();
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BarManager.BL.Services
 {
@@ -20,33 +21,35 @@ namespace BarManager.BL.Services
             _orderItemRepository = orderItemRepository;
         }
 
-        public OrderItem Create(OrderItem orderitem)
+        public async Task<OrderItem> Create(OrderItem orderitem)
         {
-            var index = _orderItemRepository.GetAll().OrderByDescending(x => x.Id).FirstOrDefault()?.Id;
+            var result = await _orderItemRepository.GetAll();
+
+            var index = result.OrderByDescending(x => x.Id).FirstOrDefault()?.Id;
 
             orderitem.Id = (int)(index != null ? index + 1 : 1);
 
-            return _orderItemRepository.Create(orderitem);
+            return await _orderItemRepository.Create(orderitem);
         }
 
-        public OrderItem Delete(int id)
+        public async Task<OrderItem> Delete(int id)
         {
-            return _orderItemRepository.Delete(id);
+            return await _orderItemRepository.Delete(id);
         }
 
-        public IEnumerable<OrderItem> GetAll()
+        public async Task<IEnumerable<OrderItem>> GetAll()
         {
-            return _orderItemRepository.GetAll();
+            return await _orderItemRepository.GetAll();
         }
 
-        public OrderItem GetById(int id)
+        public async Task<OrderItem> GetById(int id)
         {
-            return _orderItemRepository.GetById(id);
+            return await _orderItemRepository.GetById(id);
         }
 
-        public OrderItem Update(OrderItem tag)
+        public async Task<OrderItem> Update(OrderItem tag)
         {
-            return _orderItemRepository.Update(tag);
+            return await _orderItemRepository.Update(tag);
         }
     }
 }

@@ -3,6 +3,7 @@ using BarManager.Models.DTO;
 using System.Collections.Generic;
 using System.Linq;
 using BarManager.DL.InMemoryDb;
+using System.Threading.Tasks;
 
 namespace BarManager.DL.Repositories.InMemoryRepos
 {
@@ -14,39 +15,39 @@ namespace BarManager.DL.Repositories.InMemoryRepos
 
         }
 
-        public OrderItem Create(OrderItem orderItem)
+        public Task<OrderItem> Create(OrderItem orderItem)
         {
             OrderItemInMemoryCollection.OrderItemDb.Add(orderItem);
 
-            return orderItem;
+            return Task.FromResult(orderItem);
         }
 
-        public OrderItem Delete(int id)
+        public Task<OrderItem> Delete(int id)
         {
             var orderItem = OrderItemInMemoryCollection.OrderItemDb.FirstOrDefault(tag => tag.Id == id);
 
             OrderItemInMemoryCollection.OrderItemDb.Remove(orderItem);
 
-            return orderItem;
+            return Task.FromResult(orderItem);
         }
 
-        public IEnumerable<OrderItem> GetAll()
+        public Task<IEnumerable<OrderItem>> GetAll()
         {
-            return OrderItemInMemoryCollection.OrderItemDb;
+            return Task.FromResult(OrderItemInMemoryCollection.OrderItemDb.AsEnumerable());
         }
 
-        public OrderItem GetById(int id)
+        public Task<OrderItem> GetById(int id)
         {
-            return OrderItemInMemoryCollection.OrderItemDb.FirstOrDefault(x => x.Id == id);
+            return Task.FromResult(OrderItemInMemoryCollection.OrderItemDb.FirstOrDefault(x => x.Id == id));
         }
 
-        public OrderItem Update(OrderItem orderItem)
+        public Task<OrderItem> Update(OrderItem orderItem)
         {
             var result = OrderItemInMemoryCollection.OrderItemDb.FirstOrDefault(x => x.Id == orderItem.Id);
 
             result.Name = orderItem.Name;
 
-            return result;
+            return Task.FromResult(orderItem);
         }
     }
 }
