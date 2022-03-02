@@ -1,18 +1,19 @@
 ﻿using BarManager.Models.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BarManager.BL.Interfaces
 {
     public interface ITagService
     {
-        Tag Create(Tag tag);
+        Task<Tag> Create(Tag tag);
 
-        Tag Update(Tag tag);
+        Task<Tag> Update(Tag tag);
 
-        Tag Delete(int id);
+        Task<Tag> Delete(int id);
 
-        Tag GetById(int id);
+        Task<Tag> GetById(int id);
 
-        IEnumerable<Tag> GetAll();
+        Task<IEnumerable<Tag>> GetAll();
     }
 }

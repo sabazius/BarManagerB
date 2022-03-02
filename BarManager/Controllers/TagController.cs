@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using BarManager.BL.Interfaces;
 using BarManager.Models.DTO;
 using BarManager.Models.Requests;
@@ -67,11 +68,11 @@ namespace BarManager.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] TagUpdateRequest tagRequest)
+        public async Task<IActionResult> Update([FromBody] TagUpdateRequest tagRequest)
         {
             if (tagRequest == null) return BadRequest();
 
-            var searchTag = _tagService.GetById(tagRequest.Id);
+            var searchTag = await _tagService.GetById(tagRequest.Id);
 
             if (searchTag == null) return NotFound(tagRequest.Id);
 

@@ -3,6 +3,7 @@ using BarManager.Models.Common;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tag = BarManager.Models.DTO.Tag;
 
 namespace BarManager.DL.Repositories.Mongo
@@ -19,35 +20,39 @@ namespace BarManager.DL.Repositories.Mongo
             _tagCollection = database.GetCollection<Tag>("Tags");
         }
 
-        public Tag Create(Tag tag)
+        public async Task<Tag> Create(Tag tag)
         {
-            _tagCollection.InsertOne(tag);
+            await _tagCollection.InsertOneAsync(tag);
 
             return tag;
         }
 
-        public Tag Update(Tag tag)
+        public async Task<Tag> Update(Tag tag)
         {
-            _tagCollection.ReplaceOne(tagToReplace => tagToReplace.Id == tag.Id, tag);
+            await _tagCollection.ReplaceOneAsync(tagToReplace => tagToReplace.Id == tag.Id, tag);
             return tag;
         }
 
-        public Tag Delete(int id)
+        public async Task<Tag> Delete(int id)
         {
-            var tag = GetById(id);
-            _tagCollection.DeleteOne(tag => tag.Id == id);
+            var tag = await GetById(id);
+            await _tagCollection.DeleteOneAsync(t => t.Id == id);
 
             return tag;
         }
 
-        public Tag GetById(int id)
+        public async Task<Tag> GetById(int id)
         {
-            return _tagCollection.Find(tag => tag.Id == id).FirstOrDefault();
+            var result = await _tagCollection.FindAsync(tag => tag.Id == id);
+
+            return result.FirstOrDefault();
         }
 
-        public IEnumerable<Tag> GetAll()
+        public async Task<IEnumerable<Tag>> GetAll()
         {
-            return _tagCollection.Find(tag => true).ToList();
+            var result = await _tagCollection.FindAsync(tag => true);
+
+            return result.ToList();
         }
     }
 }

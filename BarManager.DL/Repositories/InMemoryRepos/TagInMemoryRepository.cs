@@ -2,6 +2,7 @@
 using BarManager.Models.DTO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BarManager.DL.InMemoryDb;
 
 namespace BarManager.DL.Repositories.InMemoryRepos
@@ -14,39 +15,39 @@ namespace BarManager.DL.Repositories.InMemoryRepos
             
         }
 
-        public Tag Create(Tag tag)
+        public Task<Tag> Create(Tag tag)
         {
             TagInMemoryCollection.TagDb.Add(tag);
 
-            return tag;
+            return Task.FromResult(tag);
         }
 
-        public Tag Delete(int id)
+        public Task<Tag> Delete(int id)
         {
             var tag = TagInMemoryCollection.TagDb.FirstOrDefault(tag => tag.Id == id);
 
             TagInMemoryCollection.TagDb.Remove(tag);
 
-            return tag;
+            return Task.FromResult(tag);
         }
 
-        public IEnumerable<Tag> GetAll()
+        public Task<IEnumerable<Tag>> GetAll()
         {
-            return TagInMemoryCollection.TagDb;
+            return Task.FromResult(TagInMemoryCollection.TagDb.AsEnumerable());
         }
 
-        public Tag GetById(int id)
+        public Task<Tag> GetById(int id)
         {
-            return TagInMemoryCollection.TagDb.FirstOrDefault(x => x.Id == id);
+            return Task.FromResult(TagInMemoryCollection.TagDb.FirstOrDefault(x => x.Id == id));
         }
 
-        public Tag Update(Tag tag)
+        public Task<Tag> Update(Tag tag)
         {
             var result = TagInMemoryCollection.TagDb.FirstOrDefault(x => x.Id == tag.Id);
 
             result.Name = tag.Name;
 
-            return result;
+            return Task.FromResult(result);
         }
     }
 }
