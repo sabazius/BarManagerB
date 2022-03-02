@@ -25,19 +25,19 @@ namespace BarManager.Host.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _orderItemService.GetAll();
+            var result = await _orderItemService.GetAll();
 
             return Ok(result);
         }
 
         [HttpGet("GetById")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             if (id <= 0) return BadRequest();
 
-            var result = _orderItemService.GetById(id);
+            var result = await _orderItemService.GetById(id);
 
             if (result == null) return NotFound(id);
 
@@ -47,23 +47,23 @@ namespace BarManager.Host.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateTag([FromBody] OrderItemRequest orderItemRequest)
+        public async Task<IActionResult> CreateTag([FromBody] OrderItemRequest orderItemRequest)
         {
             if (orderItemRequest == null) return BadRequest();
 
             var orderItem = _mapper.Map<OrderItem>(orderItemRequest);
 
-            var result = _orderItemService.Create(orderItem);
+            var result = await _orderItemService.Create(orderItem);
 
             return Ok(result);
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) return BadRequest(id);
 
-            var result = _orderItemService.Delete(id);
+            var result = await _orderItemService.Delete(id);
 
             if (result == null) return NotFound(id);
 
@@ -81,7 +81,7 @@ namespace BarManager.Host.Controllers
 
             searchOrderItem.Name = orderItem.Name;
 
-            var result = _orderItemService.Update(searchOrderItem);
+            var result = await _orderItemService.Update(searchOrderItem);
 
             return Ok(result);
         }
