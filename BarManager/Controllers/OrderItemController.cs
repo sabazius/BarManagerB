@@ -7,6 +7,7 @@ using BarManager.Models.Requests;
 using BarManager.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BarManager.Host.Controllers
 {
@@ -70,11 +71,11 @@ namespace BarManager.Host.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromBody] OrderItem orderItem)
+        public async Task<IActionResult> Update([FromBody] OrderItem orderItem)
         {
             if (orderItem == null) return BadRequest();
 
-            var searchOrderItem = _orderItemService.GetById(orderItem.Id);
+            var searchOrderItem = await _orderItemService.GetById(orderItem.Id);
 
             if (searchOrderItem == null) return NotFound(orderItem.Id);
 

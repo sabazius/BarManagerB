@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BarManager.BL.Interfaces
 {
     public interface IOrderItemService
     {
-        OrderItem Create(OrderItem orderitem);
+        Task<OrderItem> Create(OrderItem orderitem);
 
-        OrderItem Update(OrderItem tag);
+        Task<OrderItem> Update(OrderItem tag);
 
-        OrderItem Delete(int id);
+        Task<OrderItem> Delete(int id);
 
-        OrderItem GetById(int id);
+        Task<OrderItem> GetById(int id);
 
-        IEnumerable<OrderItem> GetAll();
+        Task<IEnumerable<OrderItem>> GetAll();
     }
 }

@@ -4,6 +4,7 @@ using BarManager.Models.DTO;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BarManager.DL.Repositories.Mongo
 {
@@ -20,35 +21,39 @@ namespace BarManager.DL.Repositories.Mongo
 
         }
 
-        public OrderItem Create(OrderItem orderitem)
+        public async Task<OrderItem> Create(OrderItem orderitem)
         {
-            _orderItemCollection.InsertOne(orderitem);
+            await _orderItemCollection.InsertOneAsync(orderitem);
             
             return orderitem;
         }
 
-        public OrderItem Delete(int id)
+        public async Task<OrderItem> Delete(int id)
         {
-            var orderIterm = GetById(id);
+            var orderIterm = await GetById(id);
 
-            _orderItemCollection.DeleteOne(orderIterm => orderIterm.Id == id);
+            await _orderItemCollection.DeleteOneAsync(orderIterm => orderIterm.Id == id);
 
             return orderIterm;
         }
 
-        public IEnumerable<OrderItem> GetAll()
+        public async Task<IEnumerable<OrderItem>> GetAll()
         {
-            return _orderItemCollection.Find(orderItem => true).ToList();
+            var result = await _orderItemCollection.FindAsync(orderItem => true);
+
+            return result.ToList();
         }
 
-        public OrderItem GetById(int id)
+        public async Task<OrderItem> GetById(int id)
         {
-            return _orderItemCollection.Find(orderItem => orderItem.Id == id).FirstOrDefault();
+            var result = await _orderItemCollection.FindAsync(orderItem => orderItem.Id == id);
+
+            return result.FirstOrDefault();
         }
 
-        public OrderItem Update(OrderItem tag)
+        public async Task<OrderItem> Update(OrderItem tag)
         {
-            _orderItemCollection.ReplaceOne(tagToReplace => tagToReplace.Id == tag.Id, tag);
+           await _orderItemCollection.ReplaceOneAsync(tagToReplace => tagToReplace.Id == tag.Id, tag);
             
             return tag;
         }
